@@ -26,7 +26,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     }
 
     @Override
-    public Vastaus findOne(Integer key) throws SQLException {
+    public Vastaus findOne(Integer key) throws Exception {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus WHERE id = ?");
         stmt.setObject(1, key);
@@ -37,7 +37,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
             return null;
         }
 
-        Vastaus uusi = new Vastaus( rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
+        Vastaus uusi = new Vastaus(rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
         stmt.close();
         rs.close();
         connection.close();
@@ -46,13 +46,13 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     }
 
     @Override
-    public List<Vastaus> findAll() throws SQLException {
+    public List<Vastaus> findAll() throws Exception {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Vastaus");
         ResultSet rs = stmt.executeQuery();
         List<Vastaus> vastaukset = new ArrayList();
         while (rs.next()) {
-            Vastaus uusi = new Vastaus( rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
+            Vastaus uusi = new Vastaus(rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
             vastaukset.add(uusi);
         }
         stmt.close();
@@ -63,12 +63,12 @@ public class VastausDao implements Dao<Vastaus, Integer> {
     }
 
     @Override
-    public Vastaus saveOrUpdate(Vastaus object) throws SQLException {
+    public Vastaus saveOrUpdate(Vastaus object) throws Exception {
         return save(object);
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Integer key) throws Exception {
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM Vastaus WHERE id = ?");
 
@@ -79,7 +79,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         conn.close();
     }
 
-    private Vastaus save(Vastaus vastaus) throws SQLException {
+    private Vastaus save(Vastaus vastaus) throws Exception {
 
         Connection conn = database.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO Vastaus"
@@ -99,7 +99,7 @@ public class VastausDao implements Dao<Vastaus, Integer> {
         ResultSet rs = stmt.executeQuery();
         rs.next();
 
-        Vastaus uusi = new Vastaus( rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
+        Vastaus uusi = new Vastaus(rs.getInt("id"), rs.getInt("kysymys_id"), rs.getString("vastausteksti"), rs.getBoolean("oikein"));
 
         stmt.close();
         rs.close();
@@ -108,13 +108,13 @@ public class VastausDao implements Dao<Vastaus, Integer> {
 
         return uusi;
     }
-    
-    public List<Vastaus> findAllwithKysymysId(int id) throws SQLException {
+
+    public List<Vastaus> findAllwithKysymysId(int id) throws Exception {
         Connection connection = database.getConnection();
-        List<Vastaus> kaikkivastaukset= findAll();
-        List<Vastaus> halututvastaukset= new ArrayList();
-        for (Vastaus vastaus: kaikkivastaukset){
-            if (vastaus.getKysymysId()==id){
+        List<Vastaus> kaikkivastaukset = findAll();
+        List<Vastaus> halututvastaukset = new ArrayList();
+        for (Vastaus vastaus : kaikkivastaukset) {
+            if (vastaus.getKysymysId() == id) {
                 halututvastaukset.add(vastaus);
             }
         }
