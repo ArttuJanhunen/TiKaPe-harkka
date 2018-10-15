@@ -26,7 +26,7 @@ public class Main {
         if (System.getenv("PORT") != null) {
             Spark.port(Integer.valueOf(System.getenv("PORT")));
         }
-        
+
         Spark.get("/", (req, res) -> {
             res.redirect("/kysymykset");
             return "";
@@ -54,11 +54,11 @@ public class Main {
 
         Spark.post("/poista/:id", (req, res) -> {
             Integer poistettava = Integer.parseInt(req.params(":id"));
-            kysymykset.delete(poistettava);
             List<Vastaus> poistettavat = vastaukset.findAllwithKysymysId(poistettava);
             for (Vastaus vastaus : poistettavat) {
                 vastaukset.delete(vastaus.getId());
             }
+            kysymykset.delete(poistettava);
 
             res.redirect("/kysymykset");
             return "";
