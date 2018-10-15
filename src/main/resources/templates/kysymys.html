@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Kysymysten vastausvaihtoehdot</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <h3>Kurssin nimi: <span th:text="${kysymys.kurssi}">Kysymyksen kurssi</span></h3>
+
+        <h3>Kysymyksen aihe: <span th:text="${kysymys.aihe}">Kysymyksen aihe</span></h3>
+        <h3 >Kysymys: <span th:text="${kysymys.kysymysteksti}">Kysymys</span></h3>
+        <p>Vastausvaihtoehdot:</p>
+        <ul>
+            <li th:each="vastaus : ${vastaukset}">
+                <p>
+                    <span th:text="${vastaus.teksti}">Vastausvaihtoehto</span>
+                </p>
+                <p><span th:text="${vastaus.tekstina}">Totuusarvo</span></p>
+                <form th:action="@{~/poistavastaus/{id}(id=${vastaus.id})}" method="POST">
+                    <input type="submit" value="Poista"/>
+                    <input type="hidden" name="kysymys.id" th:value="${kysymys.id}" />
+
+                </form>
+
+            </li>
+
+        </ul>
+        <br/>
+        <form method="POST" action="/lisaavastaus">
+            <h2>Lisää uusi vastaus:</h2>
+            <br/>
+            <input type="hidden" name="kysymys.id" th:value="${kysymys.id}" />
+            <p>Vastausteksti: </p>
+            <input type="text" name ="vastausteksti"/>
+            <input type="checkbox" name="totta">Vastaus on oikein</input>
+            <br/>
+            <br/>
+            <input type="submit" value="Lisää vastaus"/>
+        </form>
+        <br/>
+
+        <a th:href="@{~/kysymykset}">Takaisin kysymysvalikkoon</a>
+    </body>
+</html>
