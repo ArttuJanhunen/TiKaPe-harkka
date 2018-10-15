@@ -46,8 +46,8 @@ public class Kysymys {
     public String getKysymysteksti() {
         return this.kysymysteksti;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
 }
