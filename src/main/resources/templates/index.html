@@ -20,6 +20,7 @@ and open the template in the editor.
 
                 <a th:href="@{~/kysymykset/{id}(id=${kysymys.id})}"><span th:text="${kysymys.kysymysteksti}">Kysymyksen teksti</span></a>
                 <br/>
+                <br/>
                 <form th:action="@{~/poista/{id}(id=${kysymys.id})}" method="POST">
                     <input type="submit" value="Poista"/>
                 </form>
@@ -28,6 +29,8 @@ and open the template in the editor.
 
 
         <h2>Lisää uusi kysymys</h2>
+        <br/>
+        <p>(Kysymys hyväksytään vain, jos kaikki tekstikentät ovat täytettynä)</p>
         <form method="POST" action="/lisaa">
             <p>Kysymyksen kurssi:</p>
             <input type="text" name ="kurssi"/>
