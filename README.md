@@ -1,0 +1,2 @@
+# TiKaPe-harkka
+Täällä on TiKaPen toisen harjoitustyön lähdekoodit. Ohjelman tarkoitus on toimia kysymyspankkina, johon voi lisätä kysymyksiä. Kysymyksillä on kurssi sekä aihe. Kysymyksen omalle sivulle siirtyessä hyperlinkin kautta kysymykselle voi lisätä vastausvaihtoehtoja, joille voi asettaa arvot "oikein" ja "väärin". Kysymyksen omalta sivulta voi palata linkin kautta kysymysten listaukseen. Sekä kysymykset että vastaukset ovat poistettavissa nappia painamalla.
